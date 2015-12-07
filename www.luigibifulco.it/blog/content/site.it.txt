@@ -1,0 +1,9 @@
+Title: Luigi's Dev Corner
+
+----
+
+Description: Programming tricks. Expertise sharing. Development experience.
+
+----
+
+Info: <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Licenza Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br /><p class="copyright text-muted"><span  xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">Tutti gli articoli e i contenuti non linkati all'interno del Luigi Bifulco's Weblog compresa </span> <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.luigibifulco.it/" property="cc:attributionName" rel="cc:attributionURL"> la Home Page</a> sono sotto <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons license</a>.<br />Questo weblog è basato su  <a xmlns:dct="http://purl.org/dc/terms/" href="http://getkirby.com/" rel="dct:source">Kirby CMS</a>.</p>

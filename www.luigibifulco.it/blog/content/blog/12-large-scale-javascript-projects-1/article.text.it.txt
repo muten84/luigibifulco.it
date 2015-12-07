@@ -1,0 +1,105 @@
+Title: Realizzare progetti Javascript Scalabili: Parte 1
+
+----
+
+Date: 2015-11-18
+
+----
+
+Description: Introduzione alla realizzazione di progetti Javascript scalabili: dal module pattern a RequireJS
+
+----
+
+Related: - blog/javascript-mastering-global-scope
+
+----
+
+Tags: modular design,javascript,require.js,large scale javascript
+
+----
+
+Text: 
+
+###Large scale e Modular Design
+La scalabilità di un progetto è alta se con l'aumentare del numero di funzionalità realizzate il progetto continua ad essere facilmente manutenibile e la creazione di ogni una nuova funzionalità mantiene un basso impatto.
+La scelta delle tecnologie a supporto della scalabilità di un progetto è un punto focale. **Per garantire la scalabilità, non basta conoscere il "framework" o il linguaggio di tendenza**  e può venir comodo conoscere i "Pattern" strutturali che ci aiutano almeno concettualmente a modellare il nostro progetto.  L'idea che sta alla base dei progetti scalabili è la modularità (Modular Design).
+La progettazione modulare permette di pensare il nostro software in tanti piccoli pezzi dove ogni pezzo coprirà una o più funzionalità richieste dal sistema. Possiamo immaginare quindi la progettazione come un puzzle dove ogni pezzo serve il suo compito, ogni pezzo non sa che serve a comporre un unico grande quadro.
+Se i pezzi del puzzle si incastrano bene potremmo facilmente incorniciare il nostro puzzle, diversamente ci sarà da rivedere qualcosa quando abbiamo pensato i nostri pezzi.
+La mia esperienza sulla progettazione di sistemi software è stata sempre supportata dal linguaggio Java che in termini di scalabilità copre davvero tanti punti, purtroppo non coperti dal linguaggio Javascript. Ma quali sono i punti chiave di un progetto scalabile e soprattutto perché sforzarsi di farlo con Javascript?
+
+**La modularità è importante ma non è tutto**, infatti se abbiamo tanti moduli e non sappiamo come farli comunicare tra loro, come distribuirli tra diversi gruppi di lavoro, come metterli insieme una volta ricevuti, allora sarebbe bene  porsi queste domande e capire come rispondere.
+
+###Facciamo un passo indietro....
+Per mettere un po' di ordine sarebbe bene capire quali sono i punti a supporto della modularità, ve ne elenco alcuni (cito i più importanti):
+ - Possibilità  di creare moduli (e fin qui...)
+ - Possibilità di dichiarare dipendenze tra moduli
+ - Possibilità di distribuire un modulo e le sue dipendenze
+ - Possibilità di caricare un modulo e le sue dipendenze
+ - Possibilità di installare i moduli senza avere impatti sul sistema
+ - Possibilità di attivare e/o disattivare meccanismi di comunicazione tra tutti o un gruppo di moduli
+ - Ultimo ma non meno importante Test Unitario dei moduli
+
+Javascript (nella sua versione ES5 [1]) non offre nessun meccanismo nativo per la gestione dei moduli. Per chi proviene da Java ad esempio sa che è possibile dichiarare un Package che conterrà un insieme di Classi e che saranno facilmente distribuibili attraverso un archivio di tipo JAR, tali concetti non permettono in modo automatico di creare moduli come li abbiamo descritti in precedenza ma sicuramente ci agevolano nel realizzarli. In Javascript dimenticate tutto questo : oggetti e First-Class-Function sono le uniche basi che abbiamo per realizzare un sistema modulare. C'è tanta lavoro da fare, ma una volta fatto ne vale la pena.
+
+###Perché sforzarsi di modularizzare in Javascript:
+Ad oggi Javascript permette di realizzare molte cose e viene usato sempre più spesso per grandi progetti. Avere determinate caratteristiche a supporto di questo linguaggio sta diventando una vera esigenza. Ho visto tanti progetti, medio/grandi realizzati con Javascript e posso assicurarvi che il **refactoring** e la **manutenibilità** non sono certo una passeggiata, specie se si tratta di single page app e rich client.
+ Node.JS, TypeScript, Babel sono ormai esempi calzanti di infrastrutture basate su Javascript che forniscono meccanismi "naturali" per modularizzare il nostro sistema. Babel e TypeScript di fatto sono estensioni di Javascript che prevedono una fase di compilazione, e di fatto implementano ES6. Avere il supporto semi-nativo alla gestione dei moduli purtroppo non basta poiché non si possono mettere da parte tutte le librerie che non sono scrite in TypeScript[2] o con Babel e affini. 
+
+####L'idea di modulo
+Un modulo è un pezzo **completamente indipendente**, in quanto non ha nessuno riferimento ad un altro modulo della nostra applicazione, l'unica cosa che un modulo deve sapere è cosa esporre. Un modulo deve essere auto-consistente. In una applicazione Web , ad esempio,  ci piacerebbe avere un modulo di Login che offre una View in HTML e stili CSS, un controller della View e perché no le funzionalità di un servizio di autenticazione utilizzabili dal nostro controller[3].
+
+####L'idea di dipendenza tra moduli
+Sarebbe utile poter importare il nostro modulo di Login nella nostra applicazione, configurarlo, avviarlo, stopparlo e perché no disinstallarlo o disabilitarlo in modo che non abbia più impatto sulla nostra applicazione.
+
+####L'idea di comunicazione tra moduli
+Se la nostra applicazione ha bisogno di sapere che nel modulo di Login è avvenuta una autenticazione con successo o l'utente ha digitato degli input non validi sarebbe utile esporre  delle funzionalità base di facciata per sottoscriversi alla ricezione di eventi,  in puro stile event-driven.
+
+####L'idea di distribuzione di un modulo
+Un modulo potrebbe essere impacchettato ed etichettato con una versione. La nostra applicazione che importa il modulo di Login potrebbe dichiarare la dipendenza con tale modulo, ad esempio, alla versione 1.0 oppure alla versione 2.0.
+
+###Il module pattern in Javascript
+Come abbiamo già detto Javascript non offre nessun meccanismo  nativo per la definizione di moduli. La buona notizia è che in Javascript qualsiasi cosa è modellabile come un oggetto che,  in quanto tale,  espone proprietà e metodi. Ciò viene garantito, paradossalmente, dall'aspetto funzionale del linguaggio Javascript. In sostanza,  con semplici concetti base e lavorando un po' di immaginazione, è possibile creare semplici moduli in javascript.
+Un esempio molto semplice per rendere l'idea del module pattern in Javascript potrebbe essere:
+
+```javascript
+var module = (function() {
+  //all module methods goes here
+    function privateMethod() {
+        //...
+    }
+
+    function privateMethod2() {
+        //...
+    } 
+    return {
+       //return a facade for your module :)
+        publicMethod: function() {
+            privateMethod();
+        }
+    }
+})();
+``` 
+
+Un esempio molto banale ma allo stesso tempo efficace: questo modulo implementa una serie di funzionalità come metodi privati e sa cosa deve esporre restituendo una *facade *dei metodi pubblici. Il tutto viene guarnito dalla **IIFE** (*immediately-invoked function expression*) finale che permette di restituire ed assegnare alla variabile *module *il nostro modulo.A questo punto saremo in grado di invocare il metodo pubblico:
+
+```javascript
+module.publicMethod();
+```
+
+Ovviamente non è tutto rose e fiori, infatti per poter usare il nostro modulo l'interprete Javascript deve poter caricare i sorgenti dal file dove è stato dichiarato. Un approccio semplice potrebbe essere quello di caricare tutti i nostri moduli in sequenza... **o ancora meglio caricarli quando servono in modalità asincrona**. Per risolvere questi problemi sono stati realizzati strumenti specifici e molto potenti per caricare moduli, definirli e mantenerli divisi in più file.Personalmente mi trovo molto bene con (link: http://requirejs.org/ text: RequireJs). Notate ad esempio come la definizione di un modulo con RequireJS risulta molto più leggibile:
+
+```javascript
+define('exampleModule', function () {
+    return {
+        publicMethod: function () {
+            return 'I'm a public method of this module';
+        }
+    };
+});
+```
+Torneremo più nel dettaglio su RequireJS poiché sarà uno degli strumenti fondamentali per realizzare un progetto Javascript scalabile. Per il momento ci basta sapere cosa è un modulo, come è possibile crearlo in Javascript e che esistono strumenti come RequireJS che ci semplificano la vita in merito.
+
+
+[1]in ES6 è prevista una sintassi che permetterà di creare moduli, importarli ed esportarli.
+[2] Con TypeScript è possibile creare dei wrapper di librerie Javascript già esistenti, c'è da dire che a mio avviso la modalità è un po' macchinosa.
+[3] In contrapposizione o in parallelo ancora non si è capito esistono i web components che permettono di definire moduli e utilizzarli in una maniera dichiarativa come semplici tag html (ad es: (link: https://www.polymer-project.org/1.0/ text: Polymer)).

@@ -1,0 +1,106 @@
+Title: Lotta alla frammentazione dei sistemi: Sviluppo di Desktop App con Electron
+
+----
+
+Date: 2015-08-10
+
+----
+
+Description: Esperienza di sviluppo di un'applicazione web ibrida per piattaforme di tipo desktop
+
+----
+
+Tags: electron,node.js,desktop-app,web-app,framework,phonegap,cordova,javascript
+
+----
+
+Text: 
+
+Avete mai sentito parlare di Atom? Se la risposta è no allora siamo in due.  Sto ancora ripensando come sono meravigliosi questi link ipertestuali e come sia possibile scovare un framework del calibro di Electron mentre in realtà si era in cerca di un semplice text editor. 
+In pratica stavo cercando un (link:http://www.sitepoint.com/sitepoint-smackdown-atom-vs-brackets-vs-light-table-vs-sublime-text/  text: editor testuale) leggero per lo sviluppo web e ho letto che Atom poteva fare al caso mio.  Inoltre scopro che Atom in pratica è sviluppato con tecnologie web in un "*webkit-wrapper*". Questa parolina magica ha attirato notevolmente la mia attenzione ora vi spiego perché....
+
+....dovete sapere che il sottoscritto si sta imbattendo da alcuni mesi in una serie di tecnologie e framework volti a risolvere il problema della frammentazione dei sistemi.  Oggi risolvere questo problema è possibile grazie ad un principio base, ovvero riutilizzare un'applicazione che di fatto gira in un browser, quindi una webapp, in un contesto di riferimento che la incapsula per farla girare su un altro sistema. Mi spiego meglio: trattandosi di applicazioni web stiamo di fatto dicendo che vogliamo riutilizzare il codice HTML, CSS e Javascript, codice che normalmente viene eseguito da un browser; ora immaginiamo di sfruttare "l'oggetto browser" come sand-box dedicata della nostra applicazione. L'aspetto  ancora più interessante di questo scenario è la possibilità di invocare delle chiamate al sistema operativo direttamente dal codice Javascript. Quando una webapp contiene chiamate a codice nativo, ha quindi bisogno di essere *linkata* a librerie native nella fase di compilazione questa caratteristica rende una webapp una hybrid-app.  **Con questa tecnica è possibile minimizzare l'impatto che ad oggi le applicazioni stanno avendo dalla frammentezione dei sistemi.** Esistono molti framework in ambito mobile per risolvere il problema della frammentazione dei sistemi operativi per tablet e smartphone (Androit, iOS, Windows Phone, Blackberry OS, Firefox OS e chi più ne ha più ne metta), tra questi posso citarvi Meteor, PhoneGap, Cordova, (magari appena ho un po' di tempo spenderò due parole anche su questi tool).
+
+Detto questo possiamo tornare a noi, :). Tornando ad Atom scopro che in pratica è sviluppato con il pattern "app ibrida"... si ma chi c'è sotto? chi opera dietro questo *hackable-text-editor*? Riporto le (link: https://github.com/atom/atom text: prime righe) del README di Atom:
+
+>Atom is a hackable text editor for the 21st century, **built on Electron**, and based on everything we love about our favorite editors. We designed it to be deeply customizable, but still approachable using the default configuration.
+
+Ebbene si c'è Electron: un framework che ho provveduto subito a provare e che in pratica permette di sviluppare una desktop-app con le stesse tecnologie di una normale webapp che siamo abituati ad utilizzare da un normalissimo browser. Inoltre Electron offre un insieme di API che permettono di invocare da Javascript delle funzioni messe a disposizione dal sistema operativo (accesso al filesystem, visualizzaizone notifiche, etc.). Un aspetto sottile ma allo stesso tempo interessante è che Electron al contrario di altri framework come PhoneGap non si concentra sul target mobile, piuttosto cerca di risolvere lo stesso problema ma in ambito desktop e vi assicuro che non si tratta di un ritorno al passato.
+
+Bene, passiamo ai dettagli squisitamente tecnici: Electron si appoggia su Chromium per renderizzare le pagine web e i file CSS e unisce il browser su cui si basa Chrome al progetto Node.Js per istanziare un *embedded-server* localmente. Viene utilizzato anche Node.js, che di fatto fa da ponte per le chiamate al sistema operativo, in pratica è possibile invocare e riutilizzare qualsiasi modulo di Node.Js.
+
+Insomma l'approccio sembra davvero ottimo, e vi dirò di più provarlo è stato ancora più gratificante poiché sono riuscito a trasformare una mobile web app, in una desktop app con tanto di eseguibile .exe per Windows in poche ore. Si può installare tranquillamente da npm:
+
+```
+npm install electron
+
+```
+
+
+Fondamentalemente una Electorn App si compone di tre file un manifest, un entrypoint HTML e una entrypoint javascript. Il manifest sarà il nostro file package.json dove possiamo dichiarare il proprietà come nome dell'applicazione, versione e nome dell'entrypoint javascript:
+
+```
+{
+  "name"    : "my-app",
+  "version" : "0.1.0",
+  "main"    : "main.js"
+}
+```
+In questo modo Electron saprà quale file javascript potrà interpretare come main della nostra applicazione. Nel main.js con la funzione *require *possiamo iniettare una serie di oggetti javascript che ci saranno utili per scrivere la nostra applicazione ad esempio per controllare il ciclo di vita della nostra applicazione, oppure per controllare il browser. Un semplice main di una nostra applicazione potrebbe essere:
+```
+var app = require('app');  // Module to control application life.
+var BrowserWindow = require('browser-window');  // Module to create native browser window.
+
+// Report crashes to our server.
+require('crash-reporter').start();
+
+// Keep a global reference of the window object, if you don't, the window will
+// be closed automatically when the JavaScript object is GCed.
+var mainWindow = null;
+
+// Quit when all windows are closed.
+app.on('window-all-closed', function() {
+  // On OS X it is common for applications and their menu bar
+  // to stay active until the user quits explicitly with Cmd + Q
+  if (process.platform != 'darwin') {
+    app.quit();
+  }
+});
+
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+app.on('ready', function() {
+  // Create the browser window.
+  mainWindow = new BrowserWindow({width: 800, height: 600});
+
+  // and load the index.html of the app.
+  mainWindow.loadUrl('file://' + __dirname + '/index.html');
+
+  // Open the devtools.
+  mainWindow.openDevTools();
+
+  // Emitted when the window is closed.
+  mainWindow.on('closed', function() {
+    // Dereference the window object, usually you would store windows
+    // in an array if your app supports multi windows, this is the time
+    // when you should delete the corresponding element.
+    mainWindow = null;
+  });
+});
+```
+
+Infine non ci resta che scrivere, o riutilizzare se ce l'avevamo già, la nostra index.html e il grosso è fatto. A questo punto posizionatevi nella directory dove avete salvato i vostri files e lanciate electron:
+
+
+```
+electron ./
+
+```
+
+La community di Electron sembra davvero molto attiva sono riuscito a trovare un (link: https://github.com/sindresorhus/awesome-electron text: repository) con diversi esempi che mostrano come scrivere una Electron App e vi assicuro, come vi ho già dimostrato, che non si tratta di nulla di trascendentale. 
+
+P.S: in tutto questo... devo ancora provare Atom :)
+
+----
+
+Related: 

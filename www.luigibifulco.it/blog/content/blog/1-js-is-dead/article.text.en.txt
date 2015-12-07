@@ -1,0 +1,41 @@
+Title: Javascript Is Dead?
+
+----
+
+Date: 2015-03-21
+
+----
+
+Description: Javascript development uses of today and its purpose in my view
+
+----
+
+Tags: java,javascript,gwt,typescript,dart
+
+----
+
+Text: 
+
+In my experience of web development i had the opportunity to develop with any kind of projects: small, medium and large. Programming with backend in web development it's nice. **Frontend development for the Web  is full of traps**, specially for "dummies" developers. HTML5 solved many problems but the road it's still hard. The basic programming language provided by all browsers is Javascript. I guess nobody expects this language could become so famous, more people left a bit confusing about the word Java... i agree it should be better they   left the language name to Livescript. Nevermind the name: Javascript will still remain a famous language but it is sure that it is an horrible, confusing and in the same time a powerful programming language. 
+Ok i believe now about 70% web developers hate me :) but i believe also that **for a Java developer Javascript is an idiosyncrasy**. Infact i like to compare Javascript with this ratio:
+
+>"Javascript:Java=Assembler:C"
+
+Looking at all the tools provided for the web development i can say that knowing Javascript is good but it's a bad idea to use it for large scale development. Debugging in Javascript it was improved with many browsers, but you can think that in past javsacript engines  was released without any tools for a good development. It was designed for basic DOM manipulation.
+Maybe because a *script* remind me of a *small piece of code* that Javascript is not suitable for large application development. Of course there is not only drawbakcs, don't forget that Javascript is however  the only programming language for manipulating BOM, DOM, and many other objects offered by browsers. HTML in its fifth version offer many objects and it would  be a sin not using them.
+
+####What i mean for structured environment language
+Thankfully many people believe that developers need a programming language designed for web developers and not a simple language to interact with browsers. So i'm a web developer too and  i would to use:
+     *  a UI editor
+     *  an IDE for developing with syntax highlithing, code templating and snippet suggestions
+     * a reliable debug system
+     * a strong type compiler at least in development mode
+     * a tool for managing dependency
+     * modularization, inheritance, incapsulation
+     * reflection
+     * and last but not least: documentation.
+
+####To conclude...
+All i can say is that **there are a lot of technologies that offers all these features without compromising javascript** use or rather they make Javascript a  more stronger language. Technologies like GWT, Dart, Typescript and many others are great example of what i mean. In the next article i will try to explain all tools and technologies and how they works. So stay tuned.
+
+Luigi Bifulco

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html manifest="manifest.appcache">
+  <head>
+    <title>Geolocation and Offline Prototype App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="app.min.css">
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <style>
+      /* TODO */
+    </style>
+  </head>
+
+  <body>
+    <div class="app-page" data-page="home">
+      <div class="app-topbar">
+        <div class="app-title">Geolocation and Offline Prototype App</div>
+      </div>
+      <div class="app-content">
+       
+		<!-- in your app-content -->
+		<div class="app-section">
+			<!--<input class="app-input" placeholder="Coordinates">-->
+			<textarea id="logTa" class="app-input" placeholder="Message"></textarea>
+			<div id="startLocationBtn" class="app-button">Watch Location</div>
+			<div id="stopLocationBtn" class="app-button">Stop Location</div>
+			<div class="app-section" id="mapcanvas"></div>
+		</div>
+      </div>
+	   <div class="app-section">
+	      <div class="app-button" data-target="page2">Go to Page 2</div>
+        </div>
+    </div>
+
+    <div class="app-page" data-page="page2">
+      <div class="app-topbar">
+        <div class="app-button left" data-back data-autotitle></div>
+        <div class="app-title">Page 2</div>
+      </div>
+      <div class="app-content">
+        Page 2 is lonely
+      </div>
+    </div>
+
+    <script src="zepto.js"></script>
+    <script src="app.min.js"></script>
+	<script src="offline-cache-utils.js"></script>
+    <script>
+		var wpid;
+		var currentPage;
+		function showPosition(){
+		}
+		function logMessage(page, msg){
+			if(page==null || page == 'undefined'){
+				console.log(msg);
+			}
+			else{
+				console.log(msg);
+				var precVal = $(page).find('#logTa').val()+ "\n";
+				$(page).find('#logTa').val(precVal+msg);
+			}
+		}
+		function geo_success(position) {
+			logMessage(currentPage, "New Position collected: "+position.coords.latitude+" - "+position.coords.longitude);
+			showOnMap(position);
+		}
+		function geo_error() {
+			logMessage(currentPage,"Sorry, no position available.");
+			App.dialog({
+			  title        : 'GPS Device not ready or disabled',
+			  text         : 'Looks like the GPS device is not active or is not present',
+			  okButton     : 'Ok',
+			  //cancelButton : 'Cancel'
+			}, function (tryAgain) {
+			  if (tryAgain) {
+				// try again
+			  }
+			});
+		}
+		function startWatchLocation(){
+			
+		}
+	  var geo_options = {
+		enableHighAccuracy: true, 
+		maximumAge        : 5000, 
+		timeout           : 30000
+		};
+	  function showOnMap(position) {
+		  document.getElementById("mapcanvas").style.height = '400px';
+		  document.getElementById("mapcanvas").style.width = $(window).width();
+		  var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+		  var myOptions = {
+			zoom: 15,
+			center: latlng,
+			mapTypeControl: false,
+			navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		  };
+		  var map = new google.maps.Map(document.getElementById("mapcanvas"), myOptions);
+		  
+		  var marker = new google.maps.Marker({
+			  position: latlng, 
+			  map: map, 
+			  title:"You are here! (at least within a "+position.coords.accuracy+" meter radius)"
+		  });
+		}	
+      App.controller('home', function (page) {
+	    currentPage = page;
+		$(page)
+			.find('#startLocationBtn')
+			.on('click', function () {
+				logMessage(page,'Starting geolocation watching...');
+				wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
+				logMessage(page,'Geolocation started: '+wpid);
+				});
+			
+			
+			$(page)
+			.find('#stopLocationBtn')
+			.on('click', function () {
+				logMessage(page,'Stopping geolocation watching...'+wpid);
+				navigator.geolocation.clearWatch(wpid);
+				logMessage(page,'Geolocation stopped');
+				});
+			});
+			
+			
+			
+			
+
+      App.controller('page2', function (page) {
+        // put stuff here
+      });
+
+      try {
+        App.restore();
+      } catch (err) {
+        App.load('home');
+      }
+    </script>
+  </body>
+</html>

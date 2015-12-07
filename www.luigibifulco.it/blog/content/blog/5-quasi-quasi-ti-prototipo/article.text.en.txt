@@ -1,0 +1,45 @@
+Title: Fast prototyping of a mobile web app
+
+----
+
+Date: 2015-04-10
+
+----
+
+Description: Fast prototyping of a mobile web app.
+
+----
+
+Tags: fast prototyping,app.js,html5,geolocation,application cache,javascript
+
+----
+
+Text: 
+
+L'altro giorno vi ho (link: http://www.luigibifulco.it/blog/blog/app-js-prototype text: anticipato) che mi sarei cimentato nella creazione di un prototipo utilizzando App.js. Nello specifico il prototipo serve per testare l'affidabilità di due  caratteristiche di HTML5. Le Geolocation API e le Application Cache API. Non entrerò nel dettaglio di queste API, se non sapete cosa sono vi basta sapere che Geolocation permette di ottenere la posizione del dispositivo, mentre Application Cache permette di accedere alla vostra applicazione anche quando il dispositivo è offline. Se non si è ancora capito stiamo parlando di API utilizzabili in un'applicazione web ed essendo, a mio avviso, due caratteristiche molto interessanti per lo sviluppo di applicazioni mobile, vale davvero la pena tenerle sott'occhio.
+
+######7 giorni prima....
+Mi chiedono di sviluppare un applicazione mobile web... deve funzionare anche offline e deve accedere alla posizione GPS del dispositivo. Ansia e angoscia devastano la mia mente, ok esistono le API ma quanto sono affidabili? Trovo delle demo in rete, non basta,  non abbassano il mio livello di paranoia. Quanto sono accurate le coordinate? Come gestisco le risorse offline?  E con le risorse esterne come la mettiamo? Mille dubbi mi assalgono. Ok devo sviluppare un prototipo che utilizzi a pieno le API. Porc... devo fare pure la parte grafica!!!
+
+######Un buon punto di partenza
+Da buon purista mi sono concentrato prima sulla struttura del prototipo e cosa mi caccia il buon motore di ricerca? App.js , vediamo... proviamo...interessante!! Vi dico subito che App.js è un framework leggero e minimale per creare semplici pagine responsive e con componenti grafici di tipo touch. Inoltre le pagine possono essere controllate con un sistema davvero molto semplice. 
+Partiamo dalle pagine ovvero le view della nostra applicazione:
+
+(code: appjs.html lang:html)
+
+Davvero molto intuitivo e semplice non credete? Bene ho creato due pagine  ora se devo ottenere il riferimento alla home page per creare un po' di logica dietro i pulsantini, App.js mette a disposizione una funzione controller che può essere usata in questo modo:
+
+(code: appjs-controller.html lang:javascript)
+
+Non mi resta che caricare la mia applicazione specificando la pagina iniziale:
+
+(code: appjs-load.html lang:javascript)
+
+Templating, eventi touch compatibili con i moderni browsers, navigation stack, possibilità di creare dei veri e propri controller delle funzionalità della mia applicazione e ciliegina sulla torta...  Data Binding:
+
+(code: appjs-databinding.html lang:javascript)
+
+App.js mette a disposizione anche delle fluidissime transizioni per creare delle applicazioni web molto simili ad applicazioni native.
+
+######Solo per prototipi?
+Non credo che App.js si possa considerare un vero e proprio framework, e non è adatto per sviluppare applicazioni scalabili.  E' sicuramente un ottimo strumento per ottenere per dare una struttura semplice alle vostre applicazioni mobile. Utilizzato insieme ad altri framework come AngularJs o VueJs e jQuery oppure Zepto si può andare oltre lo sviluppo di semplici prototipi diventando molto utile per sviluppare applicazioni più complesse con una base davvero semplice. Intanto ho terminato il mio (link: http://www.luigibifulco.it/proto_app/ text: prototipo), nel prossimo articolo vi darò più dettagli sul risultato dei test che andrò a fare su Geolocation e Application Cache. Nel frattempo potete dare un'occhiata al codice che ho pubblicato su (link: https://github.com/muten84/html5-offline-geolocation-app text:github)

@@ -1,0 +1,16 @@
+CACHE MANIFEST
+ 
+# Build v5
+ 
+CACHE:
+app.min.css
+app.min.js
+index.html
+offline-cache-utils.js
+zepto.js
+
+NETWORK:
+*
+http://maps.google.com/maps/api/js?sensor=false
+http://maps.gstatic.com/*
+https://maps.gstatic.com/*

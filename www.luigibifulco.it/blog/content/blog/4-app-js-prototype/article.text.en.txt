@@ -1,0 +1,30 @@
+Title: App.js prototype
+
+----
+
+Date: 2015-04-03
+
+----
+
+Description: A first look to App.js framework: prototype needs
+
+----
+
+Tags: 
+
+----
+
+Customlink: http://code.kik.com/app/2/index.html
+
+----
+
+Linktitle: App.js
+
+----
+
+Text: 
+
+I'm looking for a web mobile framework. Native, web and hibryd everyone enable developers to solve one or some problems. I have to say that in the open source world there is no one solution. In this moment i can't find any solution that acts as a toolkit for solving "all common" problems. Probably this need does not exists yet.
+In terms of needs, today i need to create a prototype of a mobile web app. For mission critical apps fast prototyping  is a real common problem. I found App.js and i believe it's a good framework for implementing a good base structure for navigational aspetecs of a webapp. Stay tuned for my impressions. Bye.
+
+Luigi Bifulco

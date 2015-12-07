@@ -1,0 +1,54 @@
+Title: Chocolatey: package manager per Windows
+
+----
+
+Date: 2015-08-11
+
+----
+
+Description: Un package manager per Windows
+
+----
+
+Tags: package-manager,windows,chocolatey,dependencies,windows package manager
+
+----
+
+Text: 
+
+Oggi parliamo di package manager.... per Windows(?). Sicuramente gli utenti di apt-get, il famoso package manager della distribuzione Linux Debian/Ubuntu sapranno di cosa voglio parlare. Un package manager permette di installare delle applicazioni, delle librerie, o più genericamente delle dipendenze presenti su un *repository* remoto con un semplice comando che di fatto esegue in automatico una serie di passi che normalmente saremmo costretti ad eseguire "*a mano*".
+
+(oembed: https://youtu.be/ZiYtI8Qezt8?t=52)
+
+Un package manager permette di risparmiare quindi una notevole quantità di tempo. Di solito ogni distribuzione Linux ha il suo package manager (slapt per Slackware, yum per Fedora, apt per Debian e  Ubuntu).
+Purtroppo il sistema operativo di MS, non offre di default un package manager e ad oggi soffre ancora di questa mancanza (solo questa?).
+
+Una piccola nota: distinguerei, nel modo più assoluto, un package manager dagli store delle app per sistemi operativi tipo Android, iOS o WP e affini poiché secondo me un package manager è un qualcosa di più generico e permette di installare una serie di dipendenze sul nostro sistema in modo  arbitrario e che per lo stesso motivo risulta essere molto più "customizzabile" rispetto a un sistema che offre il download di applicazioni pronte all'uso.
+
+Fatta la doverosa premessa, posso già dirvi che dopo aver installato e provato (link: https://chocolatey.org/ text: **Chocolatey**) sono rimasto molto contento e soddisfatto. Questo package manager per Windows è davvero fenomenale. Si installa da linea di comando con una semplice istruzione e permette di installare una miriade di librerie e applicazioni che normalmente il sistema operativo in questione non offre. Personalmente Chocolatey mi è stato molto utile per automatizzare l'installazione del mio ambiente di sviluppo su Windows; di solito ho bisogno sempre della stessa combinazione di piattaforme, librerie e linguaggi per sviluppare quindi mi è bastato istruire Chocolatey per installare a cascata una serie di dipendenze. Tuttavia potrei tranquillamente aggiungere al mio sistema nuove dipendenze senza dovermi preoccupare dei tediosi passi di installazione, devo solo sperare che il pacchetto sia presente sul repository.
+
+Bene, veniamo a noi...se volete utilizzare Chocolatey, basta installarlo con questa semplice istruzione da una shell di Windows con permessi di Amministratore, (quindi siate sicuri che il cmd.exe sia stato lanciato con l'opzione "Esegui come Amministratore"), a questo punto lanciate il seguente comando:
+
+```
+C:\>@powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((new-object     net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
+```
+Se tutto è andato a buon fine, Chocolatey è stato installato sul vostro sistema e il comando ***choco*** dovrebbe essere richiamabile da qualsiasi punto della shell. Con il comando *choco * potete installare tutti i (link: https://chocolatey.org/packages text: pacchetti) disponibili sui repository di Chocolatey. Ad esempio per installare Java8, Python e Git sul mio sistema mi è bastato dare in sequenza questi tre comandi:
+
+```
+choco install jdk8
+choco install python
+choco install git
+```
+
+N.B: nel 99% dei casi  ho dovuto lanciare la Shell (o Console che dir si voglia, cmd.exe per intenderci) con i permessi di Amministratore. Quando c'è da fare un install, vi consiglio di lanciarla direttamente con tali permessi senza pensarci su due volte :o).
+
+Il comando choco offre tutte le (link: https://github.com/chocolatey/choco/wiki/CommandsReference text: opzioni) normalmente offerte da tutti i package manager per cercare i pacchetti, installarli, disinstallarli e aggiornarli.
+Il comando più interessante è questo qui:
+
+```
+choco upgrade all -y
+```
+
+che si preoccupa di aggiornare tutti i vostri pacchetti senza bisogno di fare nulla. Dopo aver condiviso con voi le basi di questo fantastico strumento, se siete interessati a smanettare con Chocolatey vi lascio il (link: https://github.com/chocolatey/choco/wiki text: link) della documentazione. Buone installazioni a tutti :)
+
+Luigi

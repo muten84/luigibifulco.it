@@ -1,0 +1,38 @@
+Title: Appify: page templating dinamico
+
+----
+
+Date: 2015-05-16
+
+----
+
+Description: Il framework Appify:  possibilità  di applicare contenuti dinamici basati su template
+
+----
+
+Tags: appify,templating,gwt,javascript,pages,modules,tutorial,examples,dynamic content loading,static content loading
+
+----
+
+Text: 
+
+Appify evolve sempre di più ed è con questo blog che ho intenzione di documentare le capacità di questo framework. Infatti sono felice di comunicarvi che Appify metterà a disposizione un meccanismo di templating delle pagine semplice ed efficace.
+
+##Pages e container
+Appify è un framework per applicazioni mobile HTML5 strutturato a pagine(pages). Una pagina è semplicemente un div che contiene una porzione di codice HTML che Appify interpreterà per agganciare i Controller. Il sistema di templating vi aiuterà a mantenere il codice delle vostre pagine più pulito poiché il codice di ogni pagina può essere dichiarato in modo isolato. Il contenitore delle pagine è a sua volta un documento HTML che le contiene tutte, per semplicità chiameremo questo documento "container".
+
+##appify-template
+Possiamo quindi dichiarare una pagina nel container in questo modo:
+
+(code: example1.html lang:html)
+
+Come si può facilmente notare l'attributo data-appify-template è stato valorizzato con una url che corrisponde al percorso dove Appify si aspetta di trovare il file contenente il codice html della pagina desiderata.
+Quando verrà invocato il metodo "startApp()" in pratica Appify si preoccuperà di capire quali sono tutti i div che hanno questo attributo e scaricherà tutte le pagine per voi attaccandole al DOM del nostro container.
+
+Il container delle pagine risulterà molto più pulito poiché basterà dichiarare una serie di pagine:
+(code: example2.html lang:html)
+
+mentre il codice di ogni pagina sarà localizzato nei relativi file html.
+
+##Dynamic content loading vs Static content loading
+Riepilogando il sistema che abbiamo appena visto si chiama "dynamic content loading" e si contrappone al sistema, già esistente in Appify, "static content loading". Il dynamic content loading  può essere usato in Appify per evitare di avere un container poco leggibile specie quando la mole di pagine della nostra applicazione aumenta a dismisura. Trattandosi di un contesto "mobile web app"  è doveroso precisare che il download delle pagine avviene allo start della nostra applicazione. Nei prossimi articoli vi mostrerò come istruire Appify per scaricare nuove pagine solo quando l'utente effettivamente cerca di visualizzarle, ovvero il lazy-loading delle pagine.

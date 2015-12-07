@@ -1,0 +1,100 @@
+Title: Related Pages
+
+----
+
+Subtitle: Find related pages automatically
+
+----
+
+Author: <a href="http://uwe-gehring.de/">Uwe Gehring</a>
+
+----
+
+Link: https://github.com/Adspectus/plugins/blob/master/relatedpages/relatedpages.php
+
+----
+
+Docs: https://github.com/Adspectus/plugins/blob/master/relatedpages/README.md
+
+----
+
+Text:
+
+## Installation
+
+Put the `relatedpages` folder in `/site/plugins`.
+
+## How to use it
+
+Use `<?php $relpages = relatedpages(); ?>` in your template. The return value of `relatedpages()` is a Kirby page collection object, so you can use all methods available for page collections.
+
+## Example usage
+
+In your textfile:
+
+    ----
+    Tags: design, fun, photography
+    ----
+    
+In your template:
+
+```php
+<?php $relpages = relatedpages(); ?>
+
+<ul>
+  <?php foreach($relpages as $relpage): ?>
+    <li><a href="<?php echo $relpage->url() ?>"><?php echo $relpage->title() ?></a></li>
+  <?php endforeach ?>
+</ul>
+```
+
+## How does it work
+
+The plugin looks for a field (the `searchField`, default is `Tags`) in the current document. The field should contain an arbitrary number of comma separated keywords (`searchItems`), which will be searched for. You can also provide a list of other comma separated keywords if you like (see below options `searchItems`). By default the search for related pages (i.e. pages where one or more of your searchItems appears in the searchField) covers all visible pages of your site. You can customize this range by means of a `startURI` and a `recursionDepth` (see below). You can also search for all pages, not only visible pages.
+
+## Options
+
+You can provide options as an associative array in the call of `relatedpages()`:
+
+```php
+<?php
+<?php $relpages = relatedpages(array('visibleOnly' => false, 'recursionDepth' => 1)); ?>
+?>
+```
+
+### visibleOnly
+
+Type: bool, Default: true
+
+If true, only searches for visible pages, otherwise all pages.
+
+### startURI
+
+Type: string, Default: ''
+
+If set, start the search at this URI. Use only folder names without numbers. No trailing slash. Example: '/folder/subfolder'. If empty, start at the root level.
+
+### recursionDepth
+
+Type: integer, Default: 0
+
+How many levels will be searched for. The starting level is `startURI`. 0 means infinitely.
+
+### searchField
+
+Type: string, Default: 'Tags'
+
+The name of the field in your content file which holds the searchItems and where the plugin will look for searchItems.
+
+### searchItems
+
+Type: array, Default: array()
+
+A list of keywords which should be searched for. An empty array means that all keywords which are found in the `searchField` will be searched for.
+
+### minHits
+
+Type: integer, Default: 1
+
+Number of minimum required hits of searchItems. If you provide two or more `searchItems` you can set this value to a value higher than 1. For example, if you provide two keywords and set this value to 2, both keywords have to appear in your content file to consider it as a related page. If you provide four keywords and set this value to 3, then three out of the four keywords have to appear.
+

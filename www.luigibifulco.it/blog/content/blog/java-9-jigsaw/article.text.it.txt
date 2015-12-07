@@ -1,0 +1,27 @@
+Title: Java 9 e Jigsaw: stato dell'arte
+
+----
+
+Date: 
+
+----
+
+Description: 
+
+----
+
+Related: 
+
+----
+
+Tags: 
+
+----
+
+Text: 
+
+http://openjdk.java.net/projects/jigsaw/spec/sotms/
+
+Kotlin language
+
+Java 8 e ServiceLoader: http://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html

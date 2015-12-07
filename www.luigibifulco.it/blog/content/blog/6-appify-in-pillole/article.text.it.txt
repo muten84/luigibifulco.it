@@ -1,0 +1,61 @@
+Title: Appify in pillole - Parte 1
+
+----
+
+Date: 2015-05-09
+
+----
+
+Description: Appify: un semplice framework per lo sviluppo rapido di applicazioni mobile web in Java
+
+----
+
+Tags: mobile,appify,gwt,javascript
+
+----
+
+Text: 
+
+Tanto per cambiare mi è scappato un framework. Appify si aggiunge alla lista di framework per lo sviluppo mobile, categoria: frontend mobile html5 framework.  Lo ammetto, forse esistono troppi framework e ognuno risolve problemi specifici e/o esigenze generiche. E' giusto che sia così basta sapere cosa si vuole e come lo si vuole. Ho creato Appify per risolvere diversi problemi: sviluppo rapido di applicazioni mobile con tecnologie orientate al web, facile manutenibilità del codice, scalabilità, possibilità di condividere moduli con i relativi canali di distribuzione. Appify permette di sviluppare complesse applicazioni mobile senza dover per forza utilizzare il linguaggio Javascript. Il linguaggio Javascript, per applicazioni complesse può risultare difficile da manutenere, Appify offre una struttura ben definita dell'applicazione utilizzando meccanismi di auto-generazione dello "skeleton" dell'applicazione e di auto-generazione del codice Javascript. Il tutto utilizzando il codice Java, HTML5 e CSS3.
+
+##Premessa
+Sviluppare web application lato frontend in Java ed eseguirle in Javascript oggi è possibile grazie ai compilatori Java-2-Javascript, il più famoso di questi è offerto dal (link: http://www.luigibifulco.it/blog/ text: Google Web Toolkit), più semplicemente GWT. Il toolkit di Google è utilizzato da diversi framework come Vaadin, Sencha, SmartGWT che offrono delle API per sviluppare applicazioni web di tipo enterprise, scalabili
+e interamente in Java. 
+La mia esperienza con questi framework mi ha fatto capire i vantaggi di avere a disposizione degli oggetti grafici complessi (Widget) immersi magari in un MVP/MVC pattern. D'altro canto se le Widget sono scritte in Java devono essere poi tradotte in Javascript/Dynamic HTML e linkate a risorse CSS, questa fase avviene nel momento  della compilazione delle Widget. Scrivere  la View con questo approccio, vuol dire scatenare una compilazione per ogni modifica all'interfaccia grafica. **Legarsi troppo alla compilazione da Java a Javascript per lo strato View può risultare controproducente** specialmente se non si modularizza l'applicazione.
+
+##L'idea
+**L'idea che sta alla base di Appify è avere la nostra View scritta interamente in HTML** quindi senza farsi generare nulla, per la parte di UI, dal compilatore, **e poter scrivere in Java solo la logica applicativa che sta dietro i nostri oggetti grafici**. In altre parole in Java scriviamo lo strato di Controller, Service e Model. Dopo aver  creato un piccolo proof-of-concept  ho verificato la fattibilità dello sviluppo e ad oggi sono arrivato a un punto accettabile per poter pubblicare qualcosa. Ovviamente c'è ancora molto da sviluppare ma il framework è già utilizzabile per piccole applicazioni.
+
+##L'obiettivo
+Appify si pone nella categoria "Mobile Frontend Framework" e oltre a risolvere il problema  di poter scrivere la nostra webapp in Java si appoggia a tale linguaggio per offrire una modalità di sviluppo semplice e veloce. **Con le stesse API possiamo scrivere velocemente piccoli prototipi e allo stesso tempo farli evolvere in applicazioni più complesse senza stravolgere le iterazioni di sviluppo**.
+Tutto ciò è possibile grazie al meccanismo delle Annotations offerto da Java e massicciamente utilizzato da Appify per permettere di sviluppare:
+  - Controller
+  - Service
+  - Navigazione tra pagine con transizioni e animazioni
+  - Model View/View Model binding
+
+Inoltre Appify offre il supporto per iniettare diversi servizi utilizzabili da una mobile app:
+
+  - Supporto per il rilevamento della posizione (Geolocation)
+  - Supporto per il rilevamento dello stato della batteria (Battery)
+  - Supporto per la lettura e la scrittura su db locale per la persistenza dei dati (Storage)
+  - Supporto per la gestione dell'Application Cache (Application Cache)
+  - Supporto per la gestione dell'accesso alle risorse remote in contesti offline (Offline)
+  - Supporto per l'accesso alle proprietà dello Schermo (ScreenOrientation)
+
+##Stato dell'arte
+Attualmente il codice di Appify è ospitato sul mio (link: https://github.com/muten84/appify text: repository) GitHub e rilasciato sotto licenza GNU GPLv3. Sul repository è possibile recuperare anche un po' di documentazione. Appify è un progetto nato da poco ma può essere già utilizzato per sviluppare semplici applicazioni mobile. Chiunque può contribuire allo sviluppo di Appify o darmi dei feedback sull'utilizzo dello stesso tramite segnalazioni su GitHub, commentando questo blog o contattandomi personalmente.
+
+##Un piccolo assaggio
+Nei prossimi articoli fornirò un piccolo tutorial su come utilizzare questo framework, nel frattempo potete provare  (link: http://www.luigibifulco.it/gwt/appify.html text: questo link) per poter visionare  come ho "Appifizzato" il mio blog utilizzando Appify. In ogni caso la documentazione su GitHub descrive a pieno le possibilità del framework.
+
+Buon divertimento e "appify'em all" con Appify.
+
+Luigi Bifulco
+
+----
+
+Related: 
+
+- blog/appify-page-templating 
+- blog/app-js-prototype

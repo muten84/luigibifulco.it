@@ -1,0 +1,167 @@
+Title: Padroneggiare il module pattern: javascript e global scope
+
+----
+
+Date: 2015-11-24
+
+----
+
+Description: L'importanza di nascondere oggetti Javascript dal Global Scope e l'utilizzo del module pattern per realizzare pezzi di codice isolati
+
+----
+
+Related: - blog/large-scale-javascript-projects-1
+
+----
+
+Tags: javascript,module pattern
+
+----
+
+Text: 
+
+```
+var Module = (function () {
+  // code we want to isolate
+})();
+```
+<p></p>
+Quale modo migliore per iniziare questo articolo se non con un paio di linee di codice?
+Ebbene si, in Javascript, il *module pattern* non è un opzione, è assolutamente necessario. Se non volete avere guai con il *global scope*,  vi consiglio di seguire alla lettera i consigli che troverete nelle prossime righe.
+
+<p></p>
+###In un universo parallelo ...(senza moduli)
+
+Immaginiamo di voler sviluppare le API di una calcolatrice:
+```
+//calculator API
+type = 'NORMAL'
+
+init = function(type){//initialize calculator type
+   type = type;
+}
+
+switchType = function(type){
+      type = type;
+}
+sum = function (a,b){return a+b;}
+diff = function (a,b){return a-b;}
+prod= function(a,b){return a*b;}
+div = function(a,b){return a/b;}
+
+showCalculator = function(){ //show calculator by type
+
+	if(type==='NORMAL'){
+	 //show normal calculator
+	}
+	else{
+	 //show advanced calculator
+	}
+}
+```
+
+in questo modo le variabili sum, diff etc. dichiarate come funzioni saranno accessibili da qualsiasi scope e quindi ad es: la chiamata a funzione:
+
+```
+sum(1,2);
+```
+
+andrà a buon fine e potrà essere invocata da qualsiasi punto del codice... ma potrà anche essere malauguratamente sovrascritta. Immaginiamo ora di proseguire con lo sviluppo della nostra calcolatrice decidendo di estendere la nostra applicazione con una calcolatrice scientifica, la prima cosa che ci viene naturale fare è riutilizzare le funzioni già realizzate e magari  aggiungere l'operazione potenza:
+
+```
+pow = function(a,b){
+ if(type==='ADVANCED'){
+        return Math.pow(a,b);
+   }
+}
+```
+
+<p></p>
+###Global scope *pollution*
+Il *global scope pollution*, letteralmente inquinamento del contesto globale, è la cattiva pratica di dichiarare oggetti globali in Javascript, e che in quanto tali potrebbero essere utilizzati in altri pezzi di codice e che potrebbero a cambiare il comportamento del nostro software con effetti decisamente non voluti.
+Nell'esempio delle API della calcolatrice abbiamo inquinato il global scope con la variabile *type*...
+Ora provate a chiedervi cosa succederebbe se provassimo a fare una cosa del genere:
+
+```
+init('NORMAL');
+type='ADVANCED'; // type is global and can be manipulated by other scripts....
+```
+
+In realtà quello che vorremmo è l'utilizzatore delle Calculator API non abbia la possibilità di accedere alla variabile *type* né tanto meno possa avere la possibilità di sovrascriverla. Dietro questo banalissimo esempio si nascondono concetti molto importanti:
+
+ - Javascript ha un unico namespace globale degli oggetti.
+ - Le variabili con scope globale sono accessibili e modificabili da qualsiasi altro script.
+ - E' scoraggiata la dichiarazione di oggetti nel global namespace 
+ - E' bene dichiarare nel global namespace o per meglio dire *esportare* solo gli  oggetti che effettivamente vogliamo esporre e tramite i quali sarà possibile invocare i metodi da esso esposti o alle proprietà pubbliche.
+
+<p></p>
+###Modular Calculator: 
+Ecco come diventerebbe il nostro Calculator nella sua versione modularizzata:
+
+```
+var Calculator = (function(){
+         var type = 'NORMAL'; //default type
+         
+          var normalCalculator = {};
+          
+         var sum = function(a,b){
+                      return a+b;
+          }
+          var diff= function(a,b){
+                     return a-b;
+          }
+           var prod = function(a,b){
+                     return a*b;
+          }
+          var divide = function(a,b){
+               return a/b;
+          }
+          normalCalculator.sum = sum;
+          normalCalculator.diff= diff;
+          normalCalculator.prod=prod;
+          normalCalculator.divide=divide;
+          
+          return normalCalculator;
+})();
+```
+Innanzitutto cominciamo col dire che l'unico oggetto globale dichiarato è la variabile Calculator che di fatto rappresenta il nostro modulo. Le uniche funzioni invocabili da questa variabile sono quelle che abbiamo restituito con l'oggetto *normalCalculator*, la cui visibilità resterà locale alla funzione anonima. Ultimo ma non meno importante: tutto ciò che non viene restituito dal modulo di fatto non risulterà visibile.
+Inoltre il modulo sarà facilmente manutenibile poiché il codice ad esso inerente è ben circoscritto e facilmente leggibile. Di fatto possiamo già utilizzare le API in questo modo:
+```
+var result = Calculator.sum(1,2);
+cosole.log(result); //prints 3
+```
+
+<p></p>
+###Estendiamo il nostro modulo...
+Volendo possiamo estendere il nostro modulo riutilizzando i metodi di facciata già esposti. Infatti si potrebbe tranquillamente creare un modulo *AdvancedCalculator * che esporrà l'operazione aggiuntiva *pow*:
+
+```
+var AdvancedCalculator = (function (NormalCalc) {
+    
+    NormalCalc.pow = function (a,b) {
+        return Math.pow(a,b);
+    };
+    
+    return NormalCalc;
+    
+})(Calculator || {});
+```
+avendo due moduli separati il nostro codice risulta ancora più pulito, tant'è vero che non abbiamo avuto bisogno della dichiarazione della variabile *type* per modellare il concetto di diverse tipologie di oggetto. Il type nel nostro caso è implicito nell'utilizzo del module pattern:
+```
+var result = Calculator.sum(1,2);
+cosole.log(result); //prints 3
+
+result = AdvancedCalculator.sum(4,5); //the extended module expose the same functions plus the pow operation
+cosole.log(result); //prints 9
+
+result = AdvancedCalculator.pow(2,2); //invoking new operation of the advanced calculator module
+cosole.log(result); //prints 4
+
+
+```
+<p></p>
+####Nota bene!
+```
+result = Calculator.pow(2,2); //NOW WORKING it not throws error
+```
+E' doveroso far notare che dopo aver esteso il modulo originario abbiamo perso l'isolamento del modulo Calculator da dove sarà possibile invocare il metodo pow. Niente paura, tutto risolvibile esistono dei pattern anche per questo, per il momento e per non confonderci meglio fermarsi qui.

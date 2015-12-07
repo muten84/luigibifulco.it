@@ -1,0 +1,52 @@
+Title: Chocolatey: package manager for Windows
+
+----
+
+Date: 2015-08-11
+
+----
+
+Description: A great package manager for Windows OS.
+
+----
+
+Tags: package-manager,windows,chocolatey,dependencies,windows package manager
+
+----
+
+Text: 
+
+Today we talk about package managers. The apt users, the well-known Debian / Ubuntu package manager, of course they know what i'm talking about. A package manager enables the users to easy install libraries and applications in the operating system. This is possible trough a repository that provides the list of downloadable packages. A package manager usually provides a command interface layer to execute packages installation without the required execution step by step.
+Furthermore installation step-by-step can change when the package type changes.
+
+(oembed: https://youtu.be/ZiYtI8Qezt8?t=52)
+
+So a package manager allow us to save a great amount of time during the installation of applications and libraries in our system. As we know every Linux Distribution provide a package manager.
+Unfortunately the MS operating system does not provide a deafult package manager and for today it suffers yet about this lack.
+
+I can say at all that after i installed and tried (link: https://chocolatey.org/ text: **Chocolatey**) i was satisfied by this tool. This package manager is great, it is possible to install it with one instruction from command line. I used Chocolatey to automate the installation of my development environment. Usually i need the same set of tools and libraries, so it was helpful enough to instruct Chocolatey to the installation of all my needed packages.
+
+If you want to install Chocolatey in your system it's enough to launch this simple instruction, be sure to launch it from a shell with Administrator permissions:
+
+```
+C:\>@powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((new-object     net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
+```
+So, if everything went well, Chocolatey was installed in your system and now you can use the ***choco*** command from any point in the shell. With the command *choco * you can install all the (link: https://chocolatey.org/packages text: packages) available on the Chocolatey repositories.
+For instance to install Java8, Python and Git it was enough  launching these commands:
+```
+choco install jdk8
+choco install python
+choco install git
+```
+
+A great command to upgrade all your packages could be:
+
+```
+choco upgrade all -y
+```
+...it starts the upgrade of all your installed packages without the need of human intervention.
+However (link: https://github.com/chocolatey/choco/wiki/CommandsReference text: here) you can find the Commands Reference Documentation for all choco options and switches.
+
+I think that's all for us, i'd like to continue saying many other things about this tool, but if you are interested to master Chocolatey you can refer to the Chocolatey (link: https://github.com/chocolatey/choco/wiki text: wiki) that provides all tricks and explanations about this package manager.
+
+Luigi

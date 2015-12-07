@@ -1,0 +1,53 @@
+Title: Node.js non è Javascript
+
+----
+
+Date: 2015-03-23
+
+----
+
+Description: Il mio punto di vista riguardo il framework basato sul famoso motore javascript V8
+
+----
+
+Tags: javascript,node.js,erlang,eventmachine,java
+
+----
+
+Text: 
+
+>In informatica JavaScript è un linguaggio di scripting orientato agli oggetti e agli eventi, comunemente utilizzato nella programmazione Web lato client per la creazione, in siti web e applicazioni web, di effetti dinamici interattivi tramite funzioni di script invocate da eventi innescati a loro volta in vari modi dall'utente sulla pagina web in uso (mouse, tastiera ecc...). [fonte (link: http://it.wikipedia.org/wiki/JavaScript text: Wikipedia )]
+
+
+>Node.js® is a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices. [fonte (link: https://nodejs.org/ text: Nodejs.org)]
+
+Dopo un po' di citazioni passiamo ad un po' di domande: utilizzare Node.js implica l'utilizzo di Javascript? Le scelte e i compromessi che portano ad usare Node.js quali sono? Quali sono i motivi che mi spingono ad  utilizzare un modello event-driven? Perché dovrei scegliere Node.js? Ed infine Javascript è un linguaggio funzionale?
+
+Cominciamo col mettere un po' di ordine. Come già spiegato in altri articoli Javascript non nasce come linguaggio funzionale nè tantomeno è stato progettato per esserlo. E' nato come linguaggio per interagire con i browser: leggero, scriptabile, interpretato, sicuro(?). Se dovessi rispondere alla domanda "Javascript è un linguaggio funzionale?" risponderei con un'altra domanda (lo so non è educato ma la premessa è doverosa), "Cosa si intende per linguaggio funzionale?"
+
+####Perché Javascript non è un linguaggio funzionale
+In informatica non esiste una vera  e propria definizione di linguaggio funzionale, ne esiste una precisa in matematica. Se per linguaggio funzionale intendiamo un linguaggio che espone first-class-function, lambdas o clojures, allora Javascript come anche Java8 è un linguaggio funzionale (ma sappiamo che non è così).
+Se consideriamo invece fattori come: immutabilità, tipi di dato algebrici (nativi), pattern matching, assenza di polimorfismo allora Javascript non è un linguaggio funzionale.
+
+####Il modello ad eventi
+I vantaggi del modello ad eventi sono notevoli. Un linguaggio basato su questo modello svincola il programmatore dai problemi legati alla programmazione concorrente. Di fatto i motori di questo tipo sono basati su librerie fornite ormai da tutti i sistemi operativi che sono in grado di gestire l'I/O in modo asincrono. Pertanto, senza scendere troppo nei dettagli, è possibile farci inviare una notifica dal sistema quando accade un determinato evento. Un modello specifico molto utilizzato di modello ad eventi è il single-thread-event-model, si tratta, semplificando, di un unico thread in continuo loop che processa gli eventi e fa in modo che questi vengano gestiti in background senza che lo sviluppatore debba preoccuparsi di gestire problematiche del tipo "produttore/consumatore". Questo modello in teoria è ritenuto più efficiente e scalabile, nella pratica bisogna aprire la scatola e capire cosa c'è dentro per averne la conferma.
+Un modello ad eventi è realizzabile con la stragrande maggioranza dei linguaggi, quelli che si prestano di più sono C,C++,C#, Python, Ruby e Java.
+
+####Event-driven != Asincrono
+Il fatto che un linguaggio o la tecnologia su cui si poggia sia event-driven non implica per forza che siamo in un contesto asincrono. Per avere un contesto completamente asincrono ogni evento dovrebbe essere gestito in  modo indipendente e processato in modo da essere sicuri che non impatti la gestione di altri eventi. Questo tipo di modalità asincrona è molto potente ma è anche molto difficile da gestire e lo sviluppatore dovrebbe avere la possibilità e la responsabilità di gestire la concorrenza degli eventi. Un modello ad eventi single-thread se gestito male potrebbe rallentare la gestione degli eventi perdendo di fatto la capacità di esecuzione asincrona del programma.
+
+####Si ma quando arriviamo a Node.js?
+Ah si dimenticavo Node.js. Bene ora che ci siamo schiariti le idee possiamo parlare di Node.js. Cominciamo subito col dire che Node.js è single-thread. Detto francamente se dovessi scegliere Node.js per rimpiazzare il classico LAMP stack direi "perché no": è semplice, leggero, immediato, e poi che bello posso usare Javascript lato server e lato client. D'altro canto se mi chiedessero di creare una web app scalabile, funzionale, clusterizzabile, basata sulla gestione concorrente e performante degli eventi.... bhe qui c'è da ragionarci.
+I trade-off in questo caso sono ad ampio spettro e per ottenere le performance bisogna fare alcuni sacrifici.  Potremmo considerare Erlang che oltre ad essere un linguaggio completamente funzionale ed orientato agli attori, offre un modello ad eventi concorrente e nativo, un aspetto  da non sottovalutare per la sua semplicità nel gestire gli eventi concorrenti. Se non vogliamo imparare un nuovo linguaggio possiamo optare per EventMachine  che sfrutta il Reactor Pattern per la gestione degli eventi, ed è disponibile in Java, Ruby e C++.
+Se conosco solo e solamente Java e voglio usare solo la JVM benissimo allora si può valutare l'utilizzo di librerie come Netty di JBoss (che uso ampiamente al lavoro sui nostri sistemi in produzione)  oppure Apache MINA.
+Cito ma non entro nel merito di Twisted: ammetto le mie lacune su Python che vuoi per pigrizia o per mancanza di opportunità,  non ho mai provato ad utilizzare.
+
+Cosa ha che non va Node.js? A dirla tutta nulla.  Per essere pratici se voglio utilizzare una CPU a 16 core devo avere 16 istanze di Node.js, e come già detto se Javascript viene usato male perde la sua caratteristica di linguaggio funzionale. L'immutabilità per la gestione parallela è un elemento importante. A mio avviso sapendo che esistono valide alternative dare uno sguardo altrove non è una cattiva idea; inoltre  l'apertura di Java con Java8 al paradigma funzionale dovrebbe dare, a breve,  i suoi frutti .
+
+ Volendo toccare il tasto "performance" vi dico solo che ho avuto il (dis)piacere di confrontarmi con persone che paragonano le performance di Node.js con quelle di un  Container JavaEE, che è come chiedersi se per fare il caffè mi serve la moka o la tazza.... chiaro che i due risolvono problemi diversi quindi non sono paragonabili.
+
+Per concludere credo che Node.js attualmente sia molto usato perché risolve problemi specifici di oggi che non saranno i problemi di domani. Gli stessi problemi sono già risolti in altri linguaggi e  framework senza rinunciare ai vantaggi offerti da Node.js.Credo che attualmente Javascript resti  un ottimo linguaggio per la programmazione lato client. In un futuro non molto lontano non è da escludere che ci ritroveremo ad utilizzare un Node (senza .js) ...
+
+P.S: Visto che ne ho citate parecchie appena possibile cercherò di stilare una tabella riassuntiva delle tecnologie descritte in questo articolo.
+
+Luigi Bifulco

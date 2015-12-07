@@ -1,0 +1,65 @@
+Title: Gods of Build Tools
+
+----
+
+Date: 2015-03-25
+
+----
+
+Description: My experience about Build Tools
+
+----
+
+Tags: build tools,ant,maven,gradle,sbt,ivy,best build tools,make,nant,nmake,maven vs gradle
+
+----
+
+Text: 
+
+Today, the need of a tool to automate the applications build process is granted in all tehcnologies.
+
+####One upon a time...Make...
+When i tried for the first time **Make** for compiling my first Hello World project it was really rewarding. 
+It was nice to understanding what hides away behind the commands "make clean, return, make install" when installing applications under a Linux OS.
+A makefile consists of text file that contains constructs such as::
+
+    target … : prerequisites …
+            recipe
+
+####...neat and clean...
+When i used Java i discovered **Ant** (Another Neat Tool). When i saw for the first time i said: "Wow it's Make for Java!!!". A tool for the build automation of projects written in Java. Ant it's based on XML. XML enables to easily extends Ant functionalities. It provides tasks and target, where a target is a set of tasks. Ant it's very powerful tool because you can develop every imaginable build chain. This is also bad aspect too, because the free will in this field it's not for all, and developers can fall into many errors. 
+
+####...the perfect couple...
+A fully functional build tool, usually provide a dependencies management system. *Ivy* solves the problem to manage dependencies and to resolve them automatically. You can see it as an extension of Ant, because Ant does not provide any dependency system. Ivy+Ant it's great marriage if you want to enable your Ant scripts to resolve dependencies.
+
+####...rival or key player ...
+When we talk about build tools, it would be a mistake if we not mention *Maven*. This tool  is fully enabled and provides natively all you need to compile test, and deploy your project. Maven has its own dependency manager and how i said it enable developers to do more others things. All these features made it a famous build tool, becoming the "standard-de-facto" of Java based projects.
+Maven enables developers to write a POM: it's an XML file for declaring the main properties of a project. Without an helper such as an Eclipse plugin, maintain a POM it's an hard work. The piece of code above shows a basic POM example:
+
+(code: maven_example.xml lang: xml)
+
+
+#### ...all others?..
+All build tools has a close correlation with the project type and languages: Make for C/C++, Ant/Maven for Java. It's easily to understand how technologies fragmentation affects the fragmentation of build tools. 
+A list of major tools:
+ - NAnt for .NEt
+ - SBT for Scala
+ - MSBuild for .NET
+ - Buildr for Ruby
+ - A-A-P for Pyhton
+ - Grunt for Javascript
+
+####...the polyglot...
+Imagine to merge Ant, Maven, and Ivy and the possibility to create a build file with a very simple language: ok, you have just got **Gradle**. 
+Gradle is wrongly compared with Maven. Gradle solves all problems related to the use of Maven eliminating XML syntax and introducing a DSL in Groovy.
+Gradle is located on top of Maven, Ant and Ivy and it uses Maven and Ivy reposiories for depedencies mangement. The Domain Specific Lanague enables developers to manage all classical objects of a project:
+ - the project properties
+ - its dependencies
+ - testing
+ - deploy
+
+A Gradle build file example:
+
+(code: gradle_example.gradle lang: groovy)
+
+Gradle speak all languages and it is designed to develop the build process for every kind of project,  this is a commendable target. Gradle is a young project and still has a long way to go. Personally i promote it for its simplicity and for all features provided.

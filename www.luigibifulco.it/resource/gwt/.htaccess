@@ -1,0 +1,6 @@
+AddType text/cache-manifest .appcache
+AddType application/json .json
+AddType application/javascript .nocache.js
+ExpiresByType text/cache-manifest "access plus 0 seconds"
+ExpiresByType application/json "access plus 0 seconds"
+ExpiresByType application/javascript "access plus 0 seconds"

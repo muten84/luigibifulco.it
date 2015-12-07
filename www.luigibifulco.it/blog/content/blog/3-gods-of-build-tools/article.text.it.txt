@@ -1,0 +1,68 @@
+Title: Gods of Build Tools
+
+----
+
+Date: 2015-03-25
+
+----
+
+Description: La mia esperienza sui più famosi strumenti di build automatico
+
+----
+
+Tags: build tools,ant,maven,gradle,sbt,ivy,best build tools,make,nant,nmake,maven vs gradle
+
+----
+
+Text: 
+
+L'esigenza di uno strumento per automatizzare il processo di build di un'applicazione è un aspetto ad oggi praticamente scontato. 
+
+####C'era una volta Make...
+Quando ho provato per la prima volta **Make** per compilare il mio primo HelloWorld in C devo dire che è stato maledettamente gratificante. Soprattutto perché finalmente avevo capito cosa si celava dietro il famoso make clean, invio, make install quando dovevo installare altre applicazioni sotto Linux. Il concetto che sta alla base di un makefile è un semplice file di testo che contiene costrutti del tipo:
+
+    target … : prerequisites …
+            recipe
+
+####...lindo e pulito...
+Ovviamente per il linguaggio Java non poteva mancare il relativo Make. Con **Ant** (acronimo di Another Neat Tool ) mi sono commosso: "Che bello Make per Java!!!". Uno strumento per il build automatico di applicazioni scritte in java, sviluppato in Java. Ant è basato su XML quindi facilmente estendibile ed offre il concetto di task e di target, dove un target in pratica è un contenitore dei tasks.
+Quando ho visto Ant mi sono reso conto che avevo a che fare con uno strumento molto potente. Ant lascia spazio alla libera immaginazione degli sviluppatori in merito ai processi di build e permette di creare in pratica qualsiasi tipo di target e di creare catene di processi interdipendenti tra loro in modo molto semplice ed intuitivo. Il libero arbitrio offerto da Ant non è per tutti,  se i task non sono correttamente correlati tra loro si corre il rischio di cadere in un baratro senza fine, soprattutto se si cerca di fare cose "troppo complicate".
+
+####...la coppia perfetta...
+Uno strumento di build completo offre di solito un sistema di gestione automatica delle dipendenze.
+Sostanzialmente **Ivy** risolve il problema della gestione automatica delle dipendenze in modo transitivo.
+Di fatto lo si può vedere come un'estensione di Ant che lo completa offrendo un modello molto generico e che si adatta a qualsiasi tipo di esigenza. Ivy+Ant risulta essere un connubio perfetto per chi vuole integrare nel build di Ant un gestore automatico delle dipendenze.
+
+
+####...l'antagonista che diventa protagonista...
+Rimanendo in tema di strumenti di build principalmente per applicazioni scritte in Java non è possibile non nominare **Maven** dall'ebreo "l'unico che comprende". Effettivamente un nome azzeccatissimo dato che parliamo di uno strumento di build automatico che implementa una serie di concetti basilari oltre al task o il target. Anche Maven permette di gestire le dipendenze di un'applicazione e come vi dicevo non fa solo questo, Questa caratteristica lo ha reso molto famoso, diventando di fatto il diretto competitor di Ivy+Ant poiché risulta essere nativamente più completo e anche perché di fatto non usa Ivy per svolgere questo compito.
+Anche Maven è basato su XML ed offre un Object Model, ovvero il POM, molto vasto: le direttive offerte sono moltissime e scrivere un POM può risultare, oneroso,  talvolta macchinoso. Senza il plugin per Eclipse manutenere un POM può diventare un lavoro frustrante. Per scrivere un semplice POM basta rispettare la sintassi XML offerta:
+
+(code: maven_example.xml lang: xml)
+
+Gli utenti di Maven credo si possano dividere in due categorie: chi pensa di avere a disposizione una bacchetta magica e chi ha capito di avere a che fare con uno strumento completo. Se compreso a fondo Maven risulta essere un ottimo _tool_ per gestire l'intero ciclo di vita del software, dalla creazione del progetto al suo sviluppo, dalla generazione di artefatti fino ad arrivare al test e infine al deploy. Maven è estendibile con una vasta gamma di plugin che permettono di aggiungere dei pezzi specifici al ciclo di vita del nostro software.
+
+
+#### ...tutti gli altri son nessuno...
+Gli strumenti visti fino ad ora hanno una stretta correlazione con la tipologia di progetti "buildabili"  in termini di tecnologie e linguaggi utilizzati: Make per C/C++, Ant/Maven principalmete per Java (potrebbe essere usato anche per progetti in C). E' facilmente intuibile come la frammentazione di queste tecnologie si è portata dietro anche la frammentazione dei relativi strumenti di build. Giusto per fare un elenco:
+ - NAnt per .NEt
+ - SBT per Scala
+ - MSBuild per .NET
+ - Buildr per Ruby
+ - A-A-P per Pyhton
+ - Grunt per Javascript
+
+####...il poliglotta...
+Immaginate di prendere Ant, completarlo con la parte buona di Maven, integrate il tutto anche con Ivy. Aggiungeteci la  possibilità di creare dei build file con un linguaggio semplice, intuitivo: bene avete appena ottenuto **Gradle**.
+Gradle viene erroneamente paragonato a Maven ma in realtà risolve una serie di problematiche legate proprio all'utilizzo di Maven. Si colloca al di sopra degli strumenti di build tool fin'ora elencati integrandoli tra loro e creando un vero e proprio livello di astrazione. Gradle è basato su Ant utilizza i repository di Maven e di Ivy e permette di scrivere gli script di build con un linguaggio funzionale nella fattispecie Groovy. Il Domain Specific Language offerto aiuta gli sviluppatori a  manipolare i classici oggetti identificabili in un processo di build:
+ - il progetto
+ - le sue dipendenze
+ - le opzioni di compilazione
+ - testing
+ - deploy
+
+Giusto per dare un'idea per scrivere il build di un semplicissimo progetto java basta scrivere queste righe di codice:
+
+(code: gradle_example.gradle lang: groovy)
+
+Inoltre gradle si astrae dalla tipologia di progetti che vogliamo "buildare" proponendosi come unico strumento di build. Gradle è molto giovane ed ha ancora tanta strada da fare, gli obiettivi che si propone sono lodevoli e personalmente faccio il tifo per Gradle.

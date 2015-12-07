@@ -1,0 +1,41 @@
+Title: Cookie Disclaimer con CookieCuttr
+
+----
+
+Date: 2015-06-12
+
+----
+
+Description: Un modo semplice e veloce per gestire i cookie in base alla nuova normativa Europea
+
+----
+
+Tags: cookie eu law,cookie,jquery,cookiecuttr
+
+----
+
+Text: 
+
+Se state cercando un modo semplice e veloce per adeguare il vostro sito alla tanto dibattuta legge sull'informativa dell'utilizzo dei cookie, vi posso consigliare [questa](https://github.com/weare2ndfloor/cookieCuttr) simpatica estensione di jQuery che si preoccupa di estendere la funzione _$_ con il metodo _cookieCuttr()_.
+Nello specifico vi basterà invocare la funzione in questo modo:
+
+```
+$.cookieCuttr();
+```
+
+per ottenere _magicamente_ una header bar, poco fastidiosa e completamente customizzabile.
+
+Inoltre _CookieCuttr_ permette di verificare se l'utente ha accettato o declinato l'utilizzo dei famigerati cookie analitici interni o di terze parti e comportarvi di conseguenza ad esempio inibendo le attività di tracciamento delle visite e quant'altro. Ad esempio nel mio sito ho inserito il controllo sulla logica di tracking  in questo modo:
+
+```
+if (jQuery.cookie('cc_cookie_accept') == "cc_cookie_accept") {
+   console.log('analitycs cookie accepted');
+}
+else{
+  console.log('analitycs cookie declined');
+}
+```
+
+Un disclaimer realizzato in questo modo rispetta a pieno la normativa, fiuuuu multa scampata. Ciauz.
+
+Luigi Bifulco

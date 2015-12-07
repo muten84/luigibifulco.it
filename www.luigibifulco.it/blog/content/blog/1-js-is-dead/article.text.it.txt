@@ -1,0 +1,43 @@
+Title: Javascript per sviluppare? No Grazie
+
+----
+
+Date: 2015-03-21
+
+----
+
+Description: Opinioni sull'utilizzo del linguaggio Javascript oggigiorno
+
+----
+
+Tags: java,javascript,gwt,typescript,dart
+
+----
+
+Text: 
+
+In questi anni di esperienza ho avuto l'opportunità di sviluppare su diversi progetti: piccoli, medi e grandi. Attualmente sviluppare lato backend è diventato davvero semplice, gli strumenti offerti sono molteplici e permettono di soddisfare gran parte delle esigenze. **Lato frontend nel mondo Web le cose si complicano**, specialmente se non sei un veterano del web. HTML5 viene incontro a molte delle problematiche già ampiamente discusse dalla comunità di sviluppatori, ma la strada, a mio avviso,  è ancora dura da percorrere.
+Come tutti sappiamo il linguaggio di programmazione per eccellenza che offrono tutti i browsers è Javascript. Permettetemi di dire che ancora oggi molte persone si lasciano ingannare dal prefisso "Java" e concordo sul fatto che Livescript sarebbe stato un nome più adatto. Quando Javascript si chiamava ancora Livescript forse nessuno riusciva ad immaginare quanto sarebbe diventato famoso. Una cosa è certa, rimane pur sempre un disgustoso, ambiguo linguaggio di programmazione e allo stesso tempo molto potente. Bene ora che mi sono fatto nemico il 70% degli sviluppatori web possiamo andare avanti :). Nessuno mi toglierà dalla testa che **per uno sviluppatore Java il linguaggio Javascript diventa una idiosincrasia**, molte volte mi piace citare questa proporzione che secondo me è vera e bilanciata:
+
+>"Javascript:Java=Assembler:C"
+
+Dando uno sguardo ai vari strumenti offerti per lo sviluppo web posso dire che conoscere Javascript è doveroso ma utilizzarlo, specialmente per grandi progetti, non è una grande idea. Le modalità di debug in Javascript sono migliorate parecchio grazie alla spinta che i vari browsers stanno dando in tal senso, ma non basta. Basti pensare che in passato i motori Javascript furono rilasciati senza nessun strumento per lo sviluppo massivo. Tant'è vero che sostanzialmente Javascript fu pensato per la sola manipolazione del DOM e per interagire con oggetti semplici del browser. 
+Sarà perché la parola *script* mi ricorda *un piccolo pezzo di codice* che Javascript non mi sembra adatto per lo sviluppo di grandi applicazioni ma con questo non voglio assolutamente insinuare che non si presta per quello per cui è stato pensato: permettere agli sviluppatori di interagire con il browser. E non ci dimentichiamo che è l'unico linguaggio attualmente offerto che ci permette di eseguire del codice al'interno di un browser. 
+
+####Cosa intendo per un ambiente strutturato
+Fortunatamente molte persone pensano che gli sviluppatori abbiano  bisogno di un linguaggio di programmazione progettato per sviluppatori e non per  smanettare. Parliamo quindi di sviluppatori che hanno bisogno di concentrarsi su domini di ben altro livello, che quindi non desiderano un linguagio che debba farci concentrare puramente sul dominio web.
+Lo sviluppatore web dovrebbe avere a disposizione:
+     * un editor di intefacce grafiche
+     * un ambiente di sviluppo con suggerimenti e sintassi evidenziata
+     * un sistema di debug affidabile
+     * un compilatore che applichi  un controllo sui tipi e le strutture utilizzate
+     * uno strumento di gestione delle dipendenze
+     * modularizzazione, ereditarietà e incapsulamento
+     * introspezione degli oggetti
+     * ultimo punto ma non meno importante: documentazione.
+
+####Conclusioni
+Tuto quello che posso dirvi per ora è che **esistono una marea di tecnologie che offrono parte di queste caratteristiche** senza compromettere i vantaggi dell'utilizzo di Javascript. Tecnologie come GWT, Dart, Typescript e molte altre sono ottimi esempi di cosa intendo. Nel prossimo aritcolo cercherò di spiegare come funzionano questi strumenti e come vengono incontro ai problemi degli sviluppatori web.
+
+
+Luigi Bifulco
