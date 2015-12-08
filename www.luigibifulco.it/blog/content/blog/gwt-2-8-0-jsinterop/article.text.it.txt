@@ -1,0 +1,44 @@
+Articlemeta:
+
+----
+
+Title: GWT 2.8.0 e JsInterop
+
+----
+
+Date: 2015-12-07
+
+----
+
+Description: Gwt 2.8.0. è stato rilasciato e la sua novità più importante la JSInterop è diventata ufficialmente sperimentale e inclusa nell'SDK del toolkit
+
+----
+
+Related:
+
+----
+
+Tags: javascript,gwt,jsinterop
+
+----
+
+Articlecontent:
+
+----
+
+Text:
+
+###GWT 2.8.0 is out
+Mentre scrivo queste righe è già da un mesetto che è stata rilasciata la Beta1 di GWT 2.8.0 che di fatto diventerà la RC1. Infatti per il momento l'unica differenza tra la Beta e la RC è che la Classic Dev Mode sarà ufficialmente deprecata e quindi non più supportata.
+
+Una piccola nota dolente di questo rilascio è la scarsa nota di degno che sta avendo sul sito gwtproject.org, mi stupisce come non sia stata ancora enfatizzata la Js Interoperability che di fatto rivoluzionerà l'approccio di GWT verso Javascript. Ultimamente GWT è stato un po' offuscato dall'imminente ES6. La verità è che GWT continuerà ad esistere e di fatto userà ES6 per la gioia dei sviluppatori Java.  Infatti tra le novità più importanti di questa tanto attesa release troviamo: - il supporto a Java8 - JsInterop - Ottimizzazioni di compilazione delle SDM (Super Dev Mode)
+
+Tralasciando la parte sulle doverose ottimizzazioni della SDM mi soffermerei di più sulle prime due .Secondo me non è un caso che siano state rilasciate insieme, Java8 infatti offre delle API e dei costrutti per il supporto alla programmazione funzionale mentre la JsInterop permette di comporre i tipi che vogliamo esportare in Javascript tramite delle annotation pensate per istruire il compilatore a generare il codice che  vogliamo esportare. GWT continuerà ad essere uno strumento che permette di colmare le lacune di Javascript offrendo un valido ponte tra il linguaggio Java e il mondo Javascript. Oggi le esigenze sono diverse e di fatto Javascript ha meno lacune da colmare; nonostante esistano validi framework come Angular.Js, Ember, Backbone, Ampersend, e affini non si possiamo chiudere gli occhi e  non fare i conti  con l'avvento di ES6, di fatto i linguaggi a supporto di questo standard cambieranno il modo di approcciarsi a Javascript. GWT sfruttando Java8 e JSInterop sta anticipando i tempi e di fatto potrà porsi architetturalmente al di sopra di queste evoluzioni di Javascript. Il risultato finale sarà una perfetta amalgama tra i prodotti della compilazione GWT e i moduli Javascript (ESX style) .
+
+###Il pezzo mancante
+Se pensiamo al fatto che Javascript offre già tempo costrutti a supporto delle programmazione funzionale è facile intuire come JsInterop sia il pezzo mancante del ponte di comunicazione tra Java e Javascript. Mi riferisco al fatto che prima risultava non immediato, (ma non impossibile)  esportare il risultato della compilazione di GWT da un tipo Java a un namespace Javascript. Praticamente JsInterop ci aiuta a scrivere codice pulito proprio per esportare le nostre librerie Java e poterle utilizzare in Javascript.
+
+###Uno sguardo più da vicino
+(code: jsinterop1.java lang: java caption: Questa è la nostra classe java)
+
+(code: jsinterop1.js lang: javascript caption: Ecco come possiamo usarla in Javascript)

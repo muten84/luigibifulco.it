@@ -20,7 +20,13 @@ Tags:
 
 Text: 
 
-(code: polymelem lang: javascript)
+(image: appify-project.jpg )
+
+(info: This is an important information.)
+
+(figure caption: text)
+content
+(/figure)
 
 
 
