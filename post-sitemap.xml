@@ -63,14 +63,6 @@
     </url>
 
     <url>
-        <loc>http://www.luigibifulco.it/blog/2017/04/08/Configurare-Virtual-Hosts-su-Nginx/</loc>
-        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>http://www.luigibifulco.it/blog/2017/04/08/Cookie-Disclaimer-con-CookieCuttr/</loc>
         <lastmod>2017-04-08T14:46:34.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -95,15 +87,7 @@
     </url>
 
     <url>
-        <loc>http://www.luigibifulco.it/blog/2017/04/08/Decorator-pattern-in-Java-with-Spring/</loc>
-        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://www.luigibifulco.it/blog/2017/04/08/Gods-of-Build-Tools/</loc>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Configurare-Virtual-Hosts-su-Nginx/</loc>
         <lastmod>2017-04-08T14:46:34.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -127,7 +111,15 @@
     </url>
 
     <url>
-        <loc>http://www.luigibifulco.it/blog/2017/04/08/Java-Bean-Mapper-Comparison/</loc>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Decorator-pattern-in-Java-with-Spring/</loc>
+        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Gods-of-Build-Tools/</loc>
         <lastmod>2017-04-08T14:46:34.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -151,7 +143,7 @@
     </url>
 
     <url>
-        <loc>http://www.luigibifulco.it/blog/2017/04/08/Node-js-non-e-Javascript/</loc>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Java-Bean-Mapper-Comparison/</loc>
         <lastmod>2017-04-08T14:46:34.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -159,7 +151,7 @@
     </url>
 
     <url>
-        <loc>http://www.luigibifulco.it/blog/2017/04/08/Quasi-quasi-ti-prototipo/</loc>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Node-js-non-e-Javascript/</loc>
         <lastmod>2017-04-08T14:46:34.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -175,7 +167,7 @@
     </url>
 
     <url>
-        <loc>http://www.luigibifulco.it/blog/2017/04/08/Pi-NodeRed-A-lot-of-fun-and-less-code/</loc>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Quasi-quasi-ti-prototipo/</loc>
         <lastmod>2017-04-08T14:46:34.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -183,7 +175,15 @@
     </url>
 
     <url>
-        <loc>http://www.luigibifulco.it/blog/2017/04/08/Padroneggiare-il-module-pattern-javascript-e-global-scope/</loc>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Windows-10-includera-un-sistema-di-package-management-stile-apt-get/</loc>
+        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Pi-NodeRed-A-lot-of-fun-and-less-code/</loc>
         <lastmod>2017-04-08T14:46:34.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -199,7 +199,7 @@
     </url>
 
     <url>
-        <loc>http://www.luigibifulco.it/blog/2017/04/08/Windows-10-includera-un-sistema-di-package-management-stile-apt-get/</loc>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Padroneggiare-il-module-pattern-javascript-e-global-scope/</loc>
         <lastmod>2017-04-08T14:46:34.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
