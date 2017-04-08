@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>http://www.luigibifulco.it/blog</loc>
+        <changefreq>daily</changefreq>
+        <priority>1</priority>
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/A-low-budget-surveillance-system/</loc>
+        <lastmod>2017-04-08T16:11:36.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/03/18/hexo-theme-beantech/</loc>
+        <lastmod>2017-04-08T15:27:19.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Chocolatey-package-manager-per-Windows/</loc>
+        <lastmod>2017-04-08T15:00:48.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Appify-page-templating-dinamico/</loc>
+        <lastmod>2017-04-08T14:57:35.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Appify-in-pillole-Parte-1/</loc>
+        <lastmod>2017-04-08T14:54:17.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Aggiornare-Node-JS-ed-NPM-su-sistemi-Windows/</loc>
+        <lastmod>2017-04-08T14:52:53.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/App-js-prototype/</loc>
+        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Configurare-Virtual-Hosts-su-Nginx/</loc>
+        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Cookie-Disclaimer-con-CookieCuttr/</loc>
+        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/CorsProxy-un-server-http-per-aggirare-le-Same-Origin-Policy/</loc>
+        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/DSL-in-linguaggi-OO/</loc>
+        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Decorator-pattern-in-Java-with-Spring/</loc>
+        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Gods-of-Build-Tools/</loc>
+        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/GWT-2-8-0-e-JsInterop/</loc>
+        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/JAX-RS-Generare-un-client-REST-da-una-interfaccia-Java-con-RestEasy/</loc>
+        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Java-Bean-Mapper-Comparison/</loc>
+        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Javascript-per-sviluppare-No-Grazie/</loc>
+        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Lotta-alla-frammentazione-dei-sistemi-Sviluppo-di-Desktop-App-con-Electron/</loc>
+        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Node-js-non-e-Javascript/</loc>
+        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Quasi-quasi-ti-prototipo/</loc>
+        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Nunchuck-js-How-to-move-and-rotate-a-3d-Cube/</loc>
+        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Pi-NodeRed-A-lot-of-fun-and-less-code/</loc>
+        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Padroneggiare-il-module-pattern-javascript-e-global-scope/</loc>
+        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Realizzare-progetti-Javascript-Scalabili-Parte-1/</loc>
+        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://www.luigibifulco.it/blog/2017/04/08/Windows-10-includera-un-sistema-di-package-management-stile-apt-get/</loc>
+        <lastmod>2017-04-08T14:46:34.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+</urlset>
+<!-- XML Sitemap generated by Hexo SEO Friendly Sitemap Generator -->

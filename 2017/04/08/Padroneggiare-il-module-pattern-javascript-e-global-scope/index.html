@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/blog/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          Padroneggiare il module pattern: javascript e global scope - Luigi&#39;s Dev Corner
+        
+    </title>
+
+    <link rel="canonical" href="http://www.luigibifulco.it/blog/blog/2017/04/08/Padroneggiare-il-module-pattern-javascript-e-global-scope/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/blog/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/blog/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/blog/css/highlight.css">
+
+    <link rel="stylesheet" href="/blog/css/widget.css">
+
+    <link rel="stylesheet" href="/blog/css/rocket.css">
+
+    <link rel="stylesheet" href="/blog/css/signature.css">
+
+    <link rel="stylesheet" href="/blog/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('undefined')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/blog/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                        </div>
+                        <h1>Padroneggiare il module pattern: javascript e global scope</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Luigi Bifulco on
+                            2017-04-08
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/blog/">Luigi&#39;s Dev Corner</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/blog/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/blog/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/blog/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/blog/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>var Module = (function () {<br>
+// code we want to isolate<br>
+})();`</p>
+<pre><code>Quale modo migliore per iniziare questo articolo se non con un paio di linee di codice?
+
+Ebbene si, in Javascript, il _module pattern_ non è un opzione, è assolutamente necessario. Se non volete avere guai con il _global scope_,  vi consiglio di seguire alla lettera i consigli che troverete nelle prossime righe.
+
+### In un universo parallelo ...(senza moduli)
+
+Immaginiamo di voler sviluppare le API di una calcolatrice:
+
+&lt;pre&gt;`//calculator API
+type = 'NORMAL'
+
+init = function(type){//initialize calculator type
+   type = type;
+}
+
+switchType = function(type){
+      type = type;
+}
+sum = function (a,b){return a+b;}
+diff = function (a,b){return a-b;}
+prod= function(a,b){return a*b;}
+div = function(a,b){return a/b;}
+
+showCalculator = function(){ //show calculator by type
+
+    if(type==='NORMAL'){
+     //show normal calculator
+    }
+    else{
+     //show advanced calculator
+    }
+}`&lt;/pre&gt;
+
+in questo modo le variabili sum, diff etc. dichiarate come funzioni saranno accessibili da qualsiasi scope e quindi ad es: la chiamata a funzione:
+
+&lt;pre&gt;`sum(1,2);`&lt;/pre&gt;
+
+andrà a buon fine e potrà essere invocata da qualsiasi punto del codice... ma potrà anche essere malauguratamente sovrascritta. Immaginiamo ora di proseguire con lo sviluppo della nostra calcolatrice decidendo di estendere la nostra applicazione con una calcolatrice scientifica, la prima cosa che ci viene naturale fare è riutilizzare le funzioni già realizzate e magari  aggiungere l'operazione potenza:
+
+&lt;pre&gt;`pow = function(a,b){
+ if(type==='ADVANCED'){
+        return Math.pow(a,b);
+   }
+}`&lt;/pre&gt;
+
+### Global scope _pollution_
+
+Il _global scope pollution_, letteralmente inquinamento del contesto globale, è la cattiva pratica di dichiarare oggetti globali in Javascript, e che in quanto tali potrebbero essere utilizzati in altri pezzi di codice e che potrebbero a cambiare il comportamento del nostro software con effetti decisamente non voluti.
+
+Nell'esempio delle API della calcolatrice abbiamo inquinato il global scope con la variabile _type_...
+
+Ora provate a chiedervi cosa succederebbe se provassimo a fare una cosa del genere:
+
+&lt;pre&gt;`init('NORMAL');
+type='ADVANCED'; // type is global and can be manipulated by other scripts....`&lt;/pre&gt;
+
+In realtà quello che vorremmo è l'utilizzatore delle Calculator API non abbia la possibilità di accedere alla variabile _type_ né tanto meno possa avere la possibilità di sovrascriverla. Dietro questo banalissimo esempio si nascondono concetti molto importanti:
+</code></pre>
+<ul>
+<li>
+<p>Javascript ha un unico namespace globale degli oggetti.</p>
+</li>
+<li>
+<p>Le variabili con scope globale sono accessibili e modificabili da qualsiasi altro script.</p>
+</li>
+<li>
+<p>E’ scoraggiata la dichiarazione di oggetti nel global namespace*   E’ bene dichiarare nel global namespace o per meglio dire <em>esportare</em> solo gli  oggetti che effettivamente vogliamo esporre e tramite i quali sarà possibile invocare i metodi da esso esposti o alle proprietà pubbliche.</p>
+<h3 id="modular-calculator">Modular Calculator:</h3>
+<p>Ecco come diventerebbe il nostro Calculator nella sua versione modularizzata:</p>
+<pre>`var Calculator = (function(){
+         var type = 'NORMAL'; //default type
+<pre><code>      var normalCalculator = {};
+
+     var sum = function(a,b){
+                  return a+b;
+      }
+      var diff= function(a,b){
+                 return a-b;
+      }
+       var prod = function(a,b){
+                 return a*b;
+      }
+      var divide = function(a,b){
+           return a/b;
+      }
+      normalCalculator.sum = sum;
+      normalCalculator.diff= diff;
+      normalCalculator.prod=prod;
+      normalCalculator.divide=divide;
+
+      return normalCalculator;
+</code></pre>
+<p>})();`</p></pre><p></p>
+<p>Innanzitutto cominciamo col dire che l’unico oggetto globale dichiarato è la variabile Calculator che di fatto rappresenta il nostro modulo. Le uniche funzioni invocabili da questa variabile sono quelle che abbiamo restituito con l’oggetto <em>normalCalculator</em>, la cui visibilità resterà locale alla funzione anonima. Ultimo ma non meno importante: tutto ciò che non viene restituito dal modulo di fatto non risulterà visibile.</p>
+<p>Inoltre il modulo sarà facilmente manutenibile poiché il codice ad esso inerente è ben circoscritto e facilmente leggibile. Di fatto possiamo già utilizzare le API in questo modo:</p>
+<pre>`var result = Calculator.sum(1,2);
+cosole.log(result); //prints 3`</pre>
+<h3 id="estendiamo-il-nostro-modulo">Estendiamo il nostro modulo…</h3>
+<p>Volendo possiamo estendere il nostro modulo riutilizzando i metodi di facciata già esposti. Infatti si potrebbe tranquillamente creare un modulo _AdvancedCalculator _ che esporrà l’operazione aggiuntiva <em>pow</em>:</p>
+<pre>`var AdvancedCalculator = (function (NormalCalc) {
+<pre><code>NormalCalc.pow = function (a,b) {
+    return Math.pow(a,b);
+};
+
+return NormalCalc;
+</code></pre>
+<p>})(Calculator || {});`</p></pre><p></p>
+<p>avendo due moduli separati il nostro codice risulta ancora più pulito, tant’è vero che non abbiamo avuto bisogno della dichiarazione della variabile <em>type</em> per modellare il concetto di diverse tipologie di oggetto. Il type nel nostro caso è implicito nell’utilizzo del module pattern:</p>
+<pre>`var result = Calculator.sum(1,2);
+cosole.log(result); //prints 3
+<p>result = AdvancedCalculator.sum(4,5); //the extended module expose the same functions plus the pow operation<br>
+cosole.log(result); //prints 9</p>
+<p>result = AdvancedCalculator.pow(2,2); //invoking new operation of the advanced calculator module<br>
+cosole.log(result); //prints 4<br>
+`</p></pre><p></p>
+<h4 id="nota-bene">Nota bene!</h4>
+<pre>`result = Calculator.pow(2,2); //NOW WORKING it not throws error
+</pre></li>
+</ul>
+<p>E’ doveroso far notare che dopo aver esteso il modulo originario abbiamo perso l’isolamento del modulo Calculator da dove sarà possibile invocare il metodo pow. Niente paura, tutto risolvibile esistono dei pattern anche per questo, per il momento e per non confonderci meglio fermarsi qui.</p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/blog/2017/04/08/Pi-NodeRed-A-lot-of-fun-and-less-code/" data-toggle="tooltip" data-placement="top" title="Pi+NodeRed =  A lot of fun and less code!">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/blog/2017/04/08/Realizzare-progetti-Javascript-Scalabili-Parte-1/" data-toggle="tooltip" data-placement="top" title="Realizzare progetti Javascript Scalabili: Parte 1">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/blog/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://beantech.org" target="_blank">Bean Tech</a></li>
+                    
+                        <li><a href="http://blog.kaijun.rocks" target="_blank">Kaijun&#39;s Blog</a></li>
+                    
+                        <li><a href="http://huangxuan.me" target="_blank">Hux Blog</a></li>
+                    
+                        <li><a href="#" target="_blank">It Helps SEO</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "luigisdevcorner";
+    var disqus_identifier = "http://www.luigibifulco.it/blog/2017/04/08/Padroneggiare-il-module-pattern-javascript-e-global-scope/";
+    var disqus_url = "http://www.luigibifulco.it/blog/2017/04/08/Padroneggiare-il-module-pattern-javascript-e-global-scope/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                    <li>
+                        <a href="/blog/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/Luigi Bifulco">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/muten84">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/Luigi Bifulco">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Luigi Bifulco 2017 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/blog/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/blog/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/blog/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://www.luigibifulco.it/blog/blog/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://www.luigibifulco.it/blog/blog/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
